@@ -137,17 +137,19 @@ function beginJourney(){
 
 
 function sad(){
-
   var sad = 1;
   var ref = database.ref('users');
   ref.once('value', showGraph);
   feels(1, "sad");
+  window.location.href="sadmeditation.html";
 }
+
 function neutral(){
   var neutral = 1;
   var ref = database.ref('users');
   ref.once('value', showGraph)
   feels(1, "neutral");
+  window.location.href="neutralmeditation.html";
 }
 function optimistic(){
   var optimistic = 1;
@@ -160,12 +162,15 @@ function stressed(){
   var ref = database.ref('users');
   ref.once('value', showGraph)
   feels(1, "stressed");
+  window.location.href="stressedmeditation.html";
 }
+
 function nutty(){
   var nutty = 1;
   var ref = database.ref('users');
   ref.once('value', showGraph)
   feels(1, "nutty");
+  window.location.href="nuttymeditation.html"
 }
 
 function feels(num, state){
