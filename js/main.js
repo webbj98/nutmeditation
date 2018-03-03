@@ -20,13 +20,19 @@ var database = firebase.database();
 //     const email = txtEmail.value;
 // )}
 
+var loggedIn = false;
+
 function writeUserData(userId) {
   console.log('THIS IS WORKING');
   var pos = userId.indexOf(".");
-  console.log(userId.substring(0,pos))
-  firebase.database().ref('users/' + userId.substring(0,pos)).set({
+  userName = userId.substring(0,pos);
+  console.log(userName);
+  firebase.database().ref('users/' + userName).set({
     username: name    //some more user data
   });
+  loggedIn = true;
+  console.log(loggedIn);
+  document.getElementById("userstring").innerHTML = userName;
 }
 
 
