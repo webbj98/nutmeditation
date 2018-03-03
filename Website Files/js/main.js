@@ -22,8 +22,9 @@ var database = firebase.database();
 
 function writeUserData(userId) {
   console.log('THIS IS WORKING');
-  console.log(userId.substring(0,(userId.length - 4)))
-  firebase.database().ref('users/' + userId.substring(0,(userId.length - 4))).set({
+  var pos = userId.indexOf(".");
+  console.log(userId.substring(0,pos))
+  firebase.database().ref('users/' + userId.substring(0,pos)).set({
     username: name    //some more user data
   });
 }
