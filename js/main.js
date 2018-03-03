@@ -20,12 +20,19 @@ var database = firebase.database();
 //     const email = txtEmail.value;
 // )}
 
+var loggedIn = false;
+
 function writeUserData(userId) {
   console.log('THIS IS WORKING');
-  console.log(userId.substring(0,(userId.length - 4)))
-  firebase.database().ref('users/' + userId.substring(0,(userId.length - 4))).set({
+  var pos = userId.indexOf(".");
+  userName = userId.substring(0,pos);
+  console.log(userName);
+  firebase.database().ref('users/' + userName).set({
     username: name    //some more user data
   });
+  loggedIn = true;
+  console.log(loggedIn);
+  document.getElementById("userstring").innerHTML = userName;
 }
 
 
@@ -152,9 +159,12 @@ function nutty(){
 }
 
 function feels(num, state){
-  var userId = txtEmail;
+  var user = firebase.auth().currentUser;
+  name = user.displayName;
+  
+  var userId = firebase.auth().getUserId
   console.log(userId)
-  var ref = database.ref('users');
+  // var ref = database.ref('users');
   console.log(state);
   var mydate=new Date();
   var year=mydate.getYear();
@@ -183,8 +193,19 @@ function feels(num, state){
   //   Hour: h,
   //   Min: m,
   //   Sec: s  
-  // }
+  // } 
   // firebase.database().ref('/users/' + userId);
   // console.log(data);
   // ref.push(data)
 }
+ref.on('value', showGraph);
+
+
+function showGraph(data){
+  console.log(data.val());
+  var user = data.val();
+  var fields = Object.keys(user);
+  console.log(fields);
+
+}
+
