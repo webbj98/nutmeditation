@@ -35,3 +35,7 @@ button {
     background-color: #40739e;
     font-size: 30px;
 }
+
+#userstring {
+    text-align: center;
+}
