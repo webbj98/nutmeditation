@@ -57,3 +57,42 @@ button {
 #userstring {
     text-align: center;
 }
+
+ err {
+     color: white;
+     text-align: center;
+     font-family: garamond;
+     font-size: 64px;
+     width: 40%;
+     margin-left: 30%;
+     margin-right: 30%;
+ }
+
+ .area {
+     width: 600px;
+     height: 300px;
+
+     position: relative;
+ }
+
+ .bubble {
+
+
+     color: white;
+     position: absolute;
+     left: 350px;
+     top: 21px;
+     width: 400px;
+     height: 300px;
+     display: table;
+
+     align: center;
+ }
+
+ .bubble p {
+     color: white;
+     display: table-cell;
+     vertical-align: middle;
+     text-align: center;
+     font-size: 60px;
+ }
