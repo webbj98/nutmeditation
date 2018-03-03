@@ -183,8 +183,18 @@ function feels(num, state){
   //   Hour: h,
   //   Min: m,
   //   Sec: s  
-  // }
+  // } 
   // firebase.database().ref('/users/' + userId);
   // console.log(data);
   // ref.push(data)
 }
+ref.on('value', showGraph);
+
+
+function showGraph(data){
+  console.log(data.val());
+  var user = data.val();
+  var fields = Object.keys(user);
+  console.log(fields);
+}
+
