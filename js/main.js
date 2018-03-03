@@ -73,7 +73,6 @@ function firebaseLogin(){
     // }
 }
 
-
 function firebaseLogout(){
     console.log('bye!');
     firebase.auth().signOut();
