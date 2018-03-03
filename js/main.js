@@ -137,17 +137,25 @@ function beginJourney(){
 
 
 function sad(){
-
   var sad = 1;
   var ref = database.ref('users');
+  console.log(ref);
   ref.once('value', showGraph);
   feels(1, "sad");
+  window.location.href="sadmeditation.html";
+  var user = ref.val();
+  var fields = Object.keys(user);
+  console.log(user);
+  alert('THIS IS WORKING');
+  console.log(fields);
 }
+
 function neutral(){
   var neutral = 1;
   var ref = database.ref('users');
   ref.once('value', showGraph)
   feels(1, "neutral");
+  window.location.href="neutralmeditation.html";
 }
 function optimistic(){
   var optimistic = 1;
@@ -160,18 +168,21 @@ function stressed(){
   var ref = database.ref('users');
   ref.once('value', showGraph)
   feels(1, "stressed");
+  window.location.href="stressedmeditation.html";
+
 }
+
 function nutty(){
   var nutty = 1;
   var ref = database.ref('users');
   ref.once('value', showGraph)
   feels(1, "nutty");
+  window.location.href="nuttymeditation.html"
 }
 
 function feels(num, state){
   // var userId = firebase.auth().getUserId;
   // name = userId.displayName;
-  
   var userId = firebase.auth().getUserId
   console.log(userId)
   var ref = database.ref('users');
@@ -209,13 +220,15 @@ function feels(num, state){
   ref.push(data);
   window.location.href="meditation.html";
 }
-// var ref = database.ref('users');
-// ref.on('value', showGraph);
 
-function showGraph(data){
-  console.log(data.val());
+
+var ref = database.ref('users');
+ref.on('value', showGraph);
+
+function showGraph(){
   var user = data.val();
   var fields = Object.keys(user);
+  console.log(user);
   alert('THIS IS WORKING');
   console.log(fields);
 }
