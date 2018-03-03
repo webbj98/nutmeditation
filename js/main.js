@@ -154,6 +154,7 @@ function optimistic(){
   var ref = database.ref('users');
   ref.once('value', showGraph)
   feels(1, "optimistic");
+  window.location.href="optimisticmeditation.html";
 }
 function stressed(){
   var ref = database.ref('users');
