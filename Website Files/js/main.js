@@ -153,9 +153,12 @@ function nutty(){
 }
 
 function feels(num, state){
-  var userId = txtEmail;
+  var user = firebase.auth().currentUser;
+  name = user.displayName;
+  
+  var userId = firebase.auth().getUserId
   console.log(userId)
-  var ref = database.ref('users');
+  // var ref = database.ref('users');
   console.log(state);
   var mydate=new Date();
   var year=mydate.getYear();
@@ -197,5 +200,6 @@ function showGraph(data){
   var user = data.val();
   var fields = Object.keys(user);
   console.log(fields);
+
 }
 
