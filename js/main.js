@@ -32,7 +32,7 @@ function writeUserData(userId) {
   });
   loggedIn = true;
   console.log(loggedIn);
-  document.getElementById("userstring").innerHTML = userName;
+  // document.getElementById("userstring").innerHTML = userName;
 }
 
 
@@ -140,31 +140,41 @@ function beginJourney(){
 function sad(){
 
   var sad = 1;
+  var ref = database.ref('users');
+  ref.once('value', showGraph);
   feels(1, "sad");
 }
 function neutral(){
   var neutral = 1;
+  var ref = database.ref('users');
+  ref.once('value', showGraph)
   feels(1, "neutral");
 }
 function optimistic(){
   var optimistic = 1;
+  var ref = database.ref('users');
+  ref.once('value', showGraph)
   feels(1, "optimistic");
 }
 function stressed(){
+  var ref = database.ref('users');
+  ref.once('value', showGraph)
   feels(1, "stressed");
 }
 function nutty(){
   var nutty = 1;
+  var ref = database.ref('users');
+  ref.once('value', showGraph)
   feels(1, "nutty");
 }
 
 function feels(num, state){
-  var user = firebase.auth().currentUser;
-  name = user.displayName;
+  // var userId = firebase.auth().getUserId;
+  // name = userId.displayName;
   
   var userId = firebase.auth().getUserId
   console.log(userId)
-  // var ref = database.ref('users');
+  var ref = database.ref('users');
   console.log(state);
   var mydate=new Date();
   var year=mydate.getYear();
@@ -176,36 +186,37 @@ function feels(num, state){
   var h = mydate.getHours();
   var m = mydate.getMinutes();
   var s = mydate.getSeconds();
-  firebase.database().ref('users/' + userId.substring(0,(userId.length - 4))).set({
-    feeling: state,
-    Day: day,
-    Month: month,
-    Daym: daym,
-    Hour: h,
-    Min: m,
-    Sec: s    //some more user data
-  });
-  // var data = {
+  // firebase.database().ref('users/' + userId.substring(0,(userId.length - 4))).set({
   //   feeling: state,
   //   Day: day,
   //   Month: month,
   //   Daym: daym,
   //   Hour: h,
   //   Min: m,
-  //   Sec: s  
-  // } 
-  // firebase.database().ref('/users/' + userId);
-  // console.log(data);
-  // ref.push(data)
+  //   Sec: s    //some more user data
+  // });
+  var data = {
+    feeling: state,
+    Day: day,
+    Month: month,
+    Daym: daym,
+    Hour: h,
+    Min: m,
+    Sec: s  
+  } 
+  firebase.database().ref('/users/' + userId);
+  console.log(data);
+  ref.push(data);
+  window.location.href="meditation.html";
 }
-ref.on('value', showGraph);
-
+// var ref = database.ref('users');
+// ref.on('value', showGraph);
 
 function showGraph(data){
   console.log(data.val());
   var user = data.val();
   var fields = Object.keys(user);
+  alert('THIS IS WORKING');
   console.log(fields);
-
 }
 
