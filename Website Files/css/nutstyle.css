@@ -22,3 +22,8 @@ button {
     font-size: 60px;
     background-color: lightblue;
 }
+
+.container button{
+    background-color: #40739e;
+    font-size: 30px;
+}

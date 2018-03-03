@@ -8,7 +8,7 @@ var config = {
   messagingSenderId: "547274297434"
 };
 firebase.initializeApp(config);
-
+var database = firebase.database();
 if (!firebase.apps.lenth){
     firebase.initializeApp({});
 }
@@ -19,8 +19,18 @@ var database = firebase.database();
 //     //get email and password
 //     const email = txtEmail.value;
 // )}
-const txtEmail = document.getElementById('txtEmail');
-const txtPassword = document.getElementById('txtPassword');
+
+function writeUserData(userId) {
+  console.log('THIS IS WORKING');
+  console.log(userId.substring(0,(userId.length - 4)))
+  firebase.database().ref('users/' + userId.substring(0,(userId.length - 4))).set({
+    username: name    //some more user data
+  });
+}
+
+
+var txtEmail = document.getElementById('txtEmail').value;
+var txtPassword = document.getElementById('txtPassword').value;
 const btnLogin = document.getElementById('btnLogin');
 const btnLogout = document.getElementById('btnLogout');
 
@@ -48,8 +58,9 @@ function firebaseLogin(){
     const email = document.getElementById('txtEmail').value;
     const pass = document.getElementById('txtPassword').value;
     const auth = firebase.auth();
-    auth.signInWithEmailAndPassword(email, pass);
+    firebaseUser = auth.signInWithEmailAndPassword(email, pass);
     console.log(email, pass);
+    writeUserData(email);
     // if(email)
     // window.open('blahhhh.html');
     // }
@@ -64,7 +75,9 @@ function firebaseLogout(){
 firebase.auth().onAuthStateChanged(firebaseUser => { //keeps checking if admin signed out
     if(firebaseUser) {
         console.log(firebaseUser);
+        var Logged = true;
     } else{
+        var Logged = false;
         console.log('not logged in');
     }
     })
@@ -92,48 +105,86 @@ function signInwGoogle(){
 
 
 //setting the global variable for the date
-var mydate=new Date();
-var year=mydate.getYear();
-if (year < 1000)
-  year += 1900;
-
-var day = mydate.getDay(); //current day
-var month = mydate.getMonth(); //current month
-var daym = mydate.getDate();
-var h = mydate.getHours();
-var m = mydate.getMinutes();
-var s = mydate.getSeconds();
-
-m = checkTime(m);
-s = checkTime(s);
-
-function checkTime(i){
-  if (i < 10) {i = "0" + i};
-  return i;
-}
 
 
 function beginJourney(){
-  var database = firebase.database();
-  var feelings = database.ref('feeling');
-  var data = {
-
+  var email = document.getElementById('txtEmail').value;
+  txtEmail = email
+  writeUserData(email);
+  console.log("help")
+  if(firebaseUser){
+    window.location.href="journey.html";
+    var database = firebase.database();
+    var feelings = database.ref('feeling');
+    // writeUserData()
+    var deeznuts = "nuttttt"
+    console.log(deeznuts)  }
+  else{
+    window.location.href="journey.html";
+    alert("LOOOOOK ITS HAPPENING")
   }
-  var deeznuts = "nuttttt"
-  console.log(deeznuts)
-  ref.push(data)
 }
 
-function submitFeeling(){
-  var data = {
-    uploadDay: day,
-    uploadDaym: daym,
-    uploadHour: h,
-    uploadMin: m,
-    uploadSec: s
-    //decide feeling type
-    //feeling
-  }
-  var ref = database.ref('feelings');
-  ref.push(data)
+//-------------------------------------------
+//From here down is the how are you feeling page!
+//separate handlers for each of the 5 feels:
+
+
+function sad(){
+
+  var sad = 1;
+  feels(1, "sad");
+}
+function neutral(){
+  var neutral = 1;
+  feels(1, "neutral");
+}
+function optimistic(){
+  var optimistic = 1;
+  feels(1, "optimistic");
+}
+function stressed(){
+  feels(1, "stressed");
+}
+function nutty(){
+  var nutty = 1;
+  feels(1, "nutty");
+}
+
+function feels(num, state){
+  var userId = txtEmail;
+  console.log(userId)
+  var ref = database.ref('users');
+  console.log(state);
+  var mydate=new Date();
+  var year=mydate.getYear();
+  if (year < 1000)
+    year += 1900;
+  var day = mydate.getDay(); //current day
+  var month = mydate.getMonth(); //current month
+  var daym = mydate.getDate();
+  var h = mydate.getHours();
+  var m = mydate.getMinutes();
+  var s = mydate.getSeconds();
+  firebase.database().ref('users/' + userId.substring(0,(userId.length - 4))).set({
+    feeling: state,
+    Day: day,
+    Month: month,
+    Daym: daym,
+    Hour: h,
+    Min: m,
+    Sec: s    //some more user data
+  });
+  // var data = {
+  //   feeling: state,
+  //   Day: day,
+  //   Month: month,
+  //   Daym: daym,
+  //   Hour: h,
+  //   Min: m,
+  //   Sec: s  
+  // }
+  // firebase.database().ref('/users/' + userId);
+  // console.log(data);
+  // ref.push(data)
 }
